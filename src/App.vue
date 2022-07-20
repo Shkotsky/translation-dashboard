@@ -1,30 +1,53 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <Navbar />
+  <div class="breadcrumb-wrapper">
+    <Breadcrumbs />
+    <div>
+      <button class="btn" v-if="showNewFolderButton" @click="handleModal">
+        + New Folder
+      </button>
+    </div>
+  </div>
+  <ModalForm v-if="showModal" />
+  <router-view />
 </template>
 
-<style lang="scss">
+<script>
+import Navbar from "@/components/Navbar.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
+import ModalForm from "@/components/ModalForm.vue";
+import { useStore } from "vuex";
+import { computed } from "@vue/runtime-core";
+export default {
+  components: { Navbar, Breadcrumbs, ModalForm },
+  setup() {
+    const store = useStore();
+    
+    const handleModal = () => {
+      store.state.showModal = true;
+    };
+
+    return {
+      showModal: computed(() => store.state.showModal),
+      showNewFolderButton: computed(() => store.state.showNewFolderButton),
+      handleModal,
+    };
+  },
+};
+</script>
+
+
+<style lang="scss" >
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.breadcrumb-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
 }
 </style>

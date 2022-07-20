@@ -1,0 +1,48 @@
+@import "./_variables.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #efefef;
+}
+p {
+  font-size: 0.8rem;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.my-projects-title {
+  display: flex;
+  padding: 0 4rem;
+  color: $light-blue;
+}
+
+.wrapper {
+  display: grid;
+  gap: 2em;
+  grid-template-columns: repeat(auto-fit, 20rem);
+  padding: 2rem 4rem;
+  justify-content: space-between;
+}
+
+.btn {
+  background-color: $light-blue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 130px;
+  cursor: pointer;
+}

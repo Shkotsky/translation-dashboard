@@ -1,40 +1,34 @@
 <template>
   <div v-if="projects" class="wrapper">
     <div v-for="project in projects" :key="project" class="project">
-      <div class="setting" v-if="setting">
-        <div v-for="folder in folders" :key="folder">
-          <span @click="addToFolder(folder, project)">{{
-            folder.attributes.name
-          }}</span>
-        </div>
-      </div>
+      
       <div class="project__content">
         <div class="project__content--streach">
-          <div class="flex-end">
-            <fa icon="ellipsis-vertical" @click="handleSettings" />
+          <div class="flex-end" style="position: relative;">
+            <MoveToFolder :project="project" />
           </div>
-          <h3>{{ project.attributes.name }}</h3>
+          <h3>{{ project.name }}</h3>
           <hr />
           <div class="project__content__properties">
             <p class="project__content__properties__title">DATE OF ORDER:</p>
             <p>
-              {{ moment(project.attributes.created_at, "YYYYMMDD").fromNow() }}
+              {{ moment(project.created_at, "YYYYMMDD").fromNow() }}
             </p>
           </div>
           <div class="project__content__properties">
             <p class="project__content__properties__title">PRICE:</p>
-            <p>{{ project.attributes.price.total_euro }}&euro;</p>
+            <p>{{ project.price.total_euro }}&euro;</p>
           </div>
           <div class="project__content__properties--align">
             <div>
               <p class="project__content__properties__title">FROM:</p>
-              <p>{{ project.attributes.source_language }}</p>
+              <p>{{ project.source_language }}</p>
             </div>
             <div>
               <p class="project__content__properties__title">TO:</p>
               <div class="target-languages--container">
                 <template
-                  v-for="langTarget in project.attributes.target_languages"
+                  v-for="langTarget in project.target_languages"
                   :key="langTarget"
                 >
                   <p>{{ langTarget }}</p>
@@ -44,18 +38,18 @@
           </div>
           <div
             class="project__progressbar"
-            v-if="project.attributes.progress.percent < 1"
+            v-if="project.progress.percent < 1"
           >
             <div
               class="project__progress"
               :style="{
-                width: project.attributes.progress.percent * 100 + '%',
+                width: project.progress.percent * 100 + '%',
               }"
             ></div>
           </div>
         </div>
         <div
-          v-if="project.attributes.progress.percent === 1"
+          v-if="project.progress.percent === 1"
           class="project__ready"
         >
           <p>Translation is ready</p>
@@ -70,11 +64,12 @@ import { useStore } from "vuex";
 import { computed, ref } from "@vue/runtime-core";
 import moment from "moment";
 import { useRoute } from "vue-router";
+import MoveToFolder from "./MoveToFolder.vue";
 
 export default {
+  components: {MoveToFolder},
   setup() {
     const store = useStore();
-
     const route = useRoute();
     const url = ref(null);
     const setting = ref(false);
@@ -84,21 +79,9 @@ export default {
       store.state.breadcrumbList[1].name = url.value;
     }
 
-    const handleSettings = () => {
+    const handleSettings = (e) => {
+      console.log(e);
       setting.value = !setting.value;
-    };
-
-    const addToFolder = async (folder, project) => {
-      const exists = (item) => item === project.id;
-
-      if (!folder.projects.some(exists)) {
-        await store.dispatch("updateFolder", {
-          folder: folder.id,
-          project: project.id,
-        });
-        await store.dispatch("getAllFolders");
-        setting.value = false;
-      }
     };
 
     return {
@@ -109,7 +92,6 @@ export default {
       },
       handleSettings,
       setting,
-      addToFolder,
     };
   },
 };
@@ -183,13 +165,5 @@ export default {
     padding-right: 5px;
   }
 }
-.setting {
-  position: absolute;
-  width: 95%;
-  height: 90%;
-  background-color: #b0b0b0;
-  overflow: scroll;
-  top: 33px;
-  left: 5px;
-}
+
 </style>

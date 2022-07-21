@@ -81,19 +81,17 @@ export default {
     const createProject = async () => {
       store.commit("setProjectParams", {
         type: "project",
-        attributes: {
-          name: projectName.value,
-          price: {
-            total_euro: price.value,
-          },
-          source_language: sourceLang.value,
-          target_languages: targetLang.value,
-          progress: {
-            percent: completed.value,
-          },
-          created_at: new Date(),
-          updated_at: new Date(),
+        name: projectName.value,
+        price: {
+          total_euro: price.value,
         },
+        source_language: sourceLang.value,
+        target_languages: targetLang.value,
+        progress: {
+          percent: completed.value,
+        },
+        created_at: new Date(),
+        updated_at: new Date(),
       });
       await store.dispatch("createProject");
       store.state.showProjectModal = false;
@@ -194,9 +192,9 @@ export default {
 }
 .checkbox-wrapper {
   display: flex;
- label {
-  font-size: 0.8rem;
-  padding: 0 5px 0 5px;
- }
+  label {
+    font-size: 0.8rem;
+    padding: 0 5px 0 5px;
+  }
 }
 </style>

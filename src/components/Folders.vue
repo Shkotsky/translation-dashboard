@@ -9,13 +9,13 @@
 
   <div class="wrapper">
     <div v-for="folder in allFolders.slice(0, loadMore)" :key="folder.id" class="folder"
-      @click="handleRouter(folder.id, folder.attributes.name)">
+      @click="handleRouter(folder.id, folder.name)">
       <div class="folder__icon">
         <fa class="folder__icon--size-color" icon="folder" />
         <fa icon="ellipsis-vertical" />
       </div>
       <div class="folder__content">
-        <h3>{{ folder.attributes.name }}</h3>
+        <h3>{{ folder.name }}</h3>
         <div class="folder__content__properties">
           <fa icon="folder-open" />
           <p>{{ folder.projects.length + " Projects" }}</p>
@@ -25,7 +25,7 @@
           <p>
             {{
                 "Created on " +
-                moment(folder.attributes.created_at).format("MMMM DD, YYYY")
+                moment(folder.created_at).format("MMMM DD, YYYY")
             }}
           </p>
         </div>
@@ -76,7 +76,7 @@ export default {
     const sortedByDate = () => {
       store.state.allFolders.sort(
         (a, b) =>
-          new Date(b.attributes.updated_at) - new Date(a.attributes.updated_at)
+          new Date(b.updated_at) - new Date(a.updated_at)
       );
     };
 

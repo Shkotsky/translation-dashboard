@@ -48,7 +48,7 @@ export default createStore({
     async getAllFolders(context) {
       try {
         const res = await axios.get(
-          `http://localhost:3000/folders?_sort=attributes.created_at&_order=desc`
+          `http://localhost:3000/folders?_sort=created_at&_order=desc`
         );
 
         context.commit("setAllFolders", res.data);
@@ -60,7 +60,7 @@ export default createStore({
       try {
         this.state.isLoading = true;
         const res = await axios.get(
-          `http://localhost:3000/projects?_sort=attributes.created_at&_order=desc`
+          `http://localhost:3000/projects?_sort=created_at&_order=desc`
         );
         context.commit("setAllSingleProjects", res.data);
       } catch (error) {
@@ -99,11 +99,10 @@ export default createStore({
           `http://localhost:3000/folders`,
           {
             type: "project-folder",
-            attributes: {
-              name: this.state.newFolder,
-              created_at: new Date(),
-              updated_at: new Date(),
-            },
+            name: this.state.newFolder,
+            created_at: new Date(),
+            updated_at: new Date(),
+
             projects: [],
           },
           {
@@ -135,13 +134,13 @@ export default createStore({
         console.log(error);
       }
     },
-    async updateFolder(context, {folder, project}) {
+    async updateFolder(context, { folder, project }) {
       try {
         const res = await axios.patch(
-          `http://localhost:3000/folders/${folder}`,
+          `http://localhost:3000/folders/${folder.id}`,
           {
             updated_at: new Date(),
-            projects: [project],
+            projects: [project, ...folder.projects],
           },
           {
             headers: {

@@ -10,7 +10,7 @@
 
 <script>
 
-import CreateProject from "./CreateProject.vue";
+import CreateProject from "./CreateProjectModal.vue";
 import { useStore } from "vuex";
 import { computed } from "@vue/runtime-core";
 export default {

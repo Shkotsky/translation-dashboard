@@ -8,18 +8,18 @@
       </button>
     </div>
   </div>
-  <ModalForm v-if="showModal" />
+  <CreateFolder v-if="showModal" />
   <router-view />
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
-import ModalForm from "@/components/ModalForm.vue";
+import CreateFolder from "@/components/CreateFolderModal.vue";
 import { useStore } from "vuex";
 import { computed } from "@vue/runtime-core";
 export default {
-  components: { Navbar, Breadcrumbs, ModalForm },
+  components: { Navbar, Breadcrumbs, CreateFolder },
   setup() {
     const store = useStore();
     

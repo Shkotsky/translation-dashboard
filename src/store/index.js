@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 import axios from "axios";
 
+const baseURL = process.env.VUE_APP_BASE_URL;
+
 export default createStore({
   state: {
     allSingleProjects: null,
@@ -48,7 +50,7 @@ export default createStore({
     async getAllFolders(context) {
       try {
         const res = await axios.get(
-          `http://localhost:3000/folders?_sort=created_at&_order=desc`
+          `${baseURL}/folders?_sort=created_at&_order=desc`
         );
 
         context.commit("setAllFolders", res.data);
@@ -60,7 +62,7 @@ export default createStore({
       try {
         this.state.isLoading = true;
         const res = await axios.get(
-          `http://localhost:3000/projects?_sort=created_at&_order=desc`
+          `${baseURL}/projects?_sort=created_at&_order=desc`
         );
         context.commit("setAllSingleProjects", res.data);
       } catch (error) {
@@ -70,12 +72,12 @@ export default createStore({
     async getSingleFolder(context, id) {
       try {
         this.state.isLoading = true;
-        const res = await axios.get(`http://localhost:3000/folders/${id}`);
+        const res = await axios.get(`${baseURL}/folders/${id}`);
 
         const projects = await axios
           .all(
             res.data.projects.map((project) =>
-              axios.get(`http://localhost:3000/projects/${project}`)
+              axios.get(`${baseURL}/projects/${project}`)
             )
           )
           .then(
@@ -96,7 +98,7 @@ export default createStore({
       try {
         this.state.isLoading = true;
         const res = await axios.post(
-          `http://localhost:3000/folders`,
+          `${baseURL}/folders`,
           {
             type: "project-folder",
             name: this.state.newFolder,
@@ -121,7 +123,7 @@ export default createStore({
       try {
         this.state.isLoading = true;
         const res = await axios.post(
-          `http://localhost:3000/projects`,
+          `${baseURL}/projects`,
           this.state.newProjectParams,
           {
             headers: {
@@ -136,18 +138,22 @@ export default createStore({
     },
     async updateFolder(context, { folder, project }) {
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/folders/${folder.id}`,
+        await axios.patch(
+          `${baseURL}/folders/${folder.id}`,
           {
             updated_at: new Date(),
             projects: [project, ...folder.projects],
-          },
-          {
-            headers: {
-              "Content-type": "application/json",
-            },
-          }
+          }    
         );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async removeProjectFromFolder(context, { folder, projects }) {
+      try {
+        await axios.patch(`${baseURL}/folders/${folder}`, {
+          projects: projects,
+        });
       } catch (error) {
         console.log(error);
       }

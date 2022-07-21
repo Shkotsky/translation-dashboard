@@ -10,12 +10,11 @@ const routes = [
     meta: {
       breadcrumb: [
         { name: 'My Folders' },
-
       ]
     }
   },
   {
-    path: '/:id/:folderName',
+    path: '/folder/:id/:folderName',
     name: 'SingleFolder',
     component: SingleFolder,
     props: true,

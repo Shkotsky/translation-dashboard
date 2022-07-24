@@ -32,10 +32,9 @@ p {
 
 .wrapper {
   display: grid;
-  gap: 2em;
-  grid-template-columns: repeat(auto-fit, 20rem);
+  gap: 3em;
+  grid-template-columns: repeat(auto-fit, 260px);
   padding: 2rem 4rem;
-  justify-content: space-between;
 }
 
 .btn {

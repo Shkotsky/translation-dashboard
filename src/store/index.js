@@ -20,28 +20,28 @@ export default createStore({
   },
   getters: {},
   mutations: {
-    setAllFolders(state, payload) {
+    SET_ALL_FOLDERS(state, payload) {
       state.allFolders = payload;
     },
-    setAllSingleProjects(state, payload) {
+    SET_ALL_SINGLE_PROJECTS(state, payload) {
       state.projects = payload;
       state.isLoading = false;
     },
-    setSingleFolder(state, payload) {
+    SET_SINGLE_FOLDER(state, payload) {
       state.projects = payload;
       state.isLoading = false;
     },
-    getFolderName(state, title) {
+    GET_FOLDER_NAME(state, title) {
       state.newFolder = title;
     },
-    setCreatedFolder(state, payload) {
+    SET_CREATED_FOLDER(state, payload) {
       console.log(payload, "You Created a Folder");
       state.isLoading = false;
     },
-    setProjectParams(state, params) {
+    SET_PROJECT_PARAMS(state, params) {
       state.newProjectParams = params;
     },
-    setCreatedProject(state, payload) {
+    SET_CREATED_PROJECT(state, payload) {
       console.log(payload, "You Created a Project");
       state.isLoading = false;
     },
@@ -53,7 +53,7 @@ export default createStore({
           `${baseURL}/folders?_sort=created_at&_order=desc`
         );
 
-        context.commit("setAllFolders", res.data);
+        context.commit("SET_ALL_FOLDERS", res.data);
       } catch (error) {
         console.log(error);
       }
@@ -64,7 +64,7 @@ export default createStore({
         const res = await axios.get(
           `${baseURL}/projects?_sort=created_at&_order=desc`
         );
-        context.commit("setAllSingleProjects", res.data);
+        context.commit("SET_ALL_SINGLE_PROJECTS", res.data);
       } catch (error) {
         console.log(error);
       }
@@ -89,7 +89,7 @@ export default createStore({
             })
           );
 
-        context.commit("setSingleFolder", projects);
+        context.commit("SET_SINGLE_FOLDER", projects);
       } catch (error) {
         console.log(error);
       }
@@ -113,7 +113,7 @@ export default createStore({
             },
           }
         );
-        context.commit("setCreatedFolder", res);
+        context.commit("SET_CREATED_FOLDER", res);
       } catch (error) {
         console.log(error);
       }
@@ -131,7 +131,7 @@ export default createStore({
             },
           }
         );
-        context.commit("setCreatedProject", res);
+        context.commit("SET_CREATED_PROJECT", res);
       } catch (error) {
         console.log(error);
       }

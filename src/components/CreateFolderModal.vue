@@ -30,7 +30,7 @@ export default {
     const store = useStore();
 
     const updateMessage = (e) => {
-      store.commit("getFolderName", e.target.value);
+      store.commit("GET_FOLDER_NAME", e.target.value);
     };
     const createFolder = async () => {
       await store.dispatch("createFolder");

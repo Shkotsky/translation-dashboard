@@ -47,7 +47,7 @@ yarn install
 yarn serve
 ```
 
-### Install JSON server for quick back-end mocking
+### Install JSON server for a quick back-end mock
 ```
 npm install -g json-server
 ```
@@ -55,8 +55,6 @@ npm install -g json-server
 ```
 json-server --watch database/db.json
 ```
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Author
 
 - Frontend Mentor - [@Shkotsky](https://www.frontendmentor.io/profile/Shkotsky)

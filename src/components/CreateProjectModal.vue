@@ -79,7 +79,7 @@ export default {
     const completed = ref(0.1);
 
     const createProject = async () => {
-      store.commit("setProjectParams", {
+      store.commit("SET_PROJECT_PARAMS", {
         type: "project",
         name: projectName.value,
         price: {

@@ -1,4 +1,4 @@
-# translate-app
+# Dashbord - Organizing Files :card_index_dividers:	
 
 ## Table of contents
 
@@ -36,7 +36,10 @@
 - Vue 3
 - Vue Router
 - Vuex
-
+```
+Disclamer:
+- some things are not done in a proper way because of the limitation of the JSON server
+```
 
 ## Project setup
 ```
@@ -57,7 +60,6 @@ json-server --watch database/db.json
 ```
 ## Author
 
-- Frontend Mentor - [@Shkotsky](https://www.frontendmentor.io/profile/Shkotsky)
 - LinkedIn - [@Marko](https://www.linkedin.com/in/marko-hristovski-77b9a6149/)
 
 
